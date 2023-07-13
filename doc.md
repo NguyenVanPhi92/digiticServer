@@ -1,3 +1,6 @@
+Node 16.16.0 npm 9.8.0
+Express + Mongoose + bcrypt + cloudinary + nodemailer
+
 11 bang Database, 72 API
 Xay theo mo hinh MVC, Middleware, Authencation, Author
 ERD: https://drawsql.app/teams/phipinto/diagrams/ecommerce

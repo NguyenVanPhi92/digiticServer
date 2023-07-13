@@ -24,13 +24,9 @@ router.put(
 )
 router.put('/likes', authMiddleware, liketheBlog)
 router.put('/dislikes', authMiddleware, disliketheBlog)
-//updateBlog
 router.put('/:id', authMiddleware, isAdmin, updateBlog)
-// getBlog
 router.get('/:id', getBlog)
-// getAllBlogs
 router.get('/', getAllBlogs)
-// deleteBlog
 router.delete('/:id', authMiddleware, isAdmin, deleteBlog)
 
 module.exports = router
