@@ -13,8 +13,16 @@ var productSchema = new mongoose.Schema(
         sold: { type: Number, default: 0 },
         images: [
             {
-                public_id: String,
-                url: String
+                public_id: {
+                    type: String,
+                    default:
+                        'https://www.91-img.com/gallery_images_uploads/d/7/d7cf5e2b1a3a3dfcca8a8dbb524fb11a8fb1c8e8.JPG?tr=h-550,w-0,c-at_max'
+                },
+                url: {
+                    type: String,
+                    default:
+                        'https://www.91-img.com/gallery_images_uploads/3/d/3df5ca6a9b470f715b085991144a5b76e70da975.JPG?tr=h-550,w-0,c-at_max'
+                }
             }
         ],
         color: [],

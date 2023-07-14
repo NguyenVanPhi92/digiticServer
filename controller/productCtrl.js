@@ -41,7 +41,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
     validateMongoDbId(id)
     try {
         const deleteProduct = await Product.findOneAndDelete(id)
-        res.json(deleteProduct)
+        res.json({ message: 'Delete product success' })
     } catch (error) {
         throw new Error(error)
     }

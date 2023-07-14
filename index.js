@@ -24,7 +24,7 @@ const uploadRouter = require('./routes/uploadRoute')
 
 dbConnect()
 
-app.use(morgan('dev'))
+app.use(morgan('dev')) // dung de login ra cac api khi goi
 app.use(cors())
 app.use(bodyParser.json()) // parser json web client send to server
 app.use(bodyParser.urlencoded({ extended: false }))
