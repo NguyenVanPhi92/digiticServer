@@ -5,9 +5,9 @@ const { notFound, errorHandler } = require('./middlewares/errorHandler')
 const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
 const cors = require('cors')
+require('dotenv').config()
 
 const app = express()
-const dotenv = require('dotenv').config()
 const PORT = 5000 || process.env.PORT
 
 //Import cac Router
@@ -25,7 +25,15 @@ const uploadRouter = require('./routes/uploadRoute')
 dbConnect()
 
 app.use(morgan('dev')) // dung de login ra cac api khi goi
-app.use(cors())
+// dat qui tac cors
+app.use(
+    cors()
+    // {
+    //     origin: process.env.CLIENT_URL, // chi cho phep url nay truy cap
+    //     methods: ['GET', 'POST', 'PUT', 'DELETE'] //chi chp phep truy cap cac phuong thuc nay
+    // }
+)
+app.use(express.urlencoded({ extended: true })) // cho phep ddocj cacs mang or obj ma client gui len
 app.use(bodyParser.json()) // parser json web client send to server
 app.use(bodyParser.urlencoded({ extended: false }))
 // Cookie parser là một thằng trung gian hay gọi là middleware trong Expressjs được sử dụng để phân tích cú pháp cookie và cũng là một phần mềm trung gian phổ biến khi những lập trình viên khởi tạo dự án sử dụng nodejs và expressjs.
