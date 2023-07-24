@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename)
 export const storage = multer.diskStorage({
     // Tạo thư mục lưu ảnh
     destination: function (req, file, cb) {
-        cb(null, path.join(__dirname, '../public/images'))
+        cb(null, path.join(__dirname, '../../public/images'))
     },
     // Chuyển đổi tên ảnh
     filename: function (req, file, cb) {

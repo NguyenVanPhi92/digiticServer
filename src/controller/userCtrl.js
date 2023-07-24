@@ -43,15 +43,16 @@ export const loginUserCtrl = asyncHandler(async (req, res) => {
     // check if user exists or not
     const findUser = await UserModel.findOne({ email })
     if (findUser && (await findUser.isPasswordMatched(password))) {
+        //khi user login thì tạo token cho phiên đăng nhập
         const refreshToken = await generateRefreshToken(findUser?._id)
-        const updateuser = await UserModel.findByIdAndUpdate(
+        await UserModel.findByIdAndUpdate(
             findUser.id,
             {
                 refreshToken: refreshToken
             },
             { new: true }
         )
-        // gan refreshToken vao cookie
+        // gán refreshToken vao cookie
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             maxAge: 72 * 60 * 60 * 1000
@@ -79,7 +80,8 @@ export const loginAdmin = asyncHandler(async (req, res) => {
     if (findAdmin.role !== 'admin') throw new Error('Not Authorised')
     if (findAdmin && (await findAdmin.isPasswordMatched(password))) {
         const refreshToken = await generateRefreshToken(findAdmin?._id)
-        const updateuser = await UserModel.findByIdAndUpdate(
+        //khi user login thì tạo token cho phiên đăng nhập
+        await UserModel.findByIdAndUpdate(
             findAdmin.id,
             {
                 refreshToken: refreshToken
@@ -122,6 +124,7 @@ export const handleRefreshToken = asyncHandler(async (req, res) => {
 // logout functionality
 export const logout = asyncHandler(async (req, res) => {
     const cookie = req.cookies
+    console.log('cookie ', cookie.refreshToken)
     if (!cookie?.refreshToken) throw new Error('No Refresh Token in Cookies')
     const refreshToken = cookie.refreshToken
     const user = await UserModel.findOne({ refreshToken })
@@ -130,7 +133,7 @@ export const logout = asyncHandler(async (req, res) => {
             httpOnly: true,
             secure: true
         })
-        return res.sendStatus(204) // forbidden
+        return res.status(200).json({ message: 'logut success' }) // forbidden
     }
     await UserModel.findOneAndUpdate(refreshToken, {
         refreshToken: ''
@@ -139,7 +142,7 @@ export const logout = asyncHandler(async (req, res) => {
         httpOnly: true,
         secure: true
     })
-    res.sendStatus(204) // forbidden
+    return res.status(200).json({ message: 'logut success' }) // forbidden
 })
 
 // Update a user
@@ -539,32 +542,3 @@ export const updateOrderStatus = asyncHandler(async (req, res) => {
         throw new Error(error)
     }
 })
-
-// // Export file model Users
-// module.exports = {
-//     createUser,
-//     loginUserCtrl,
-//     getallUser,
-//     getaUser,
-//     deleteaUser,
-//     updatedUser,
-//     blockUser,
-//     unblockUser,
-//     handleRefreshToken,
-//     logout,
-//     updatePassword,
-//     forgotPasswordToken,
-//     resetPassword,
-//     loginAdmin,
-//     getWishlist,
-//     saveAddress,
-//     userCart,
-//     getUserCart,
-//     emptyCart,
-//     applyCoupon,
-//     createOrder,
-//     getOrders,
-//     updateOrderStatus,
-//     getAllOrders,
-//     getOrderByUserId
-// }

@@ -16,7 +16,7 @@ ERD: https://drawsql.app/teams/phipinto/diagrams/ecommerce
 -   pcategories
 -   products
 -   users
--   enquiry: form nhan thoong tin gop y cuaa khach hang
+-   enquiry: form nhận thông tin của khách hàng
 
 -   Feature:
 -   User: register, updated, delete User, get one User, get all User,logout, saveAddress, updatePassword, forgotPasswordToken,resetPassword, getWishlist, userCart, getUserCart, emptyCart, applyCoupon, createOrder, getOrders, getOrderByUserId,blockUser, unblockUser 25 API
@@ -53,3 +53,6 @@ ERD: https://drawsql.app/teams/phipinto/diagrams/ecommerce
         "sharp": thư viện này cho phép bạn thực hiện các thao tác xử lý hình ảnh như điều chỉnh kích thước, cắt, chuyển đổi định dạng, và xử lý các hình ảnh nhanh chóng và hiệu quả.,
         "slugify": tạo slug vd: product-1-7hwh82-ư8r23h,
         "uniqid": tạo id duy nhất
+
+BUG: login logout cần xem lại cách thức hoạt động
+1: user login tạo 1 token -> lấy ra token đó refresh token mới tạo phiên đăng nhập lưu token vào cookie -> logout lấy ra token trong cookie delete
